@@ -8,10 +8,16 @@ start_link(Sock, ConfigBehaviorImpl) ->
 
 recv_loop(Sock, ConfigBehaviorImpl) ->
   receive
+    {tcp_connected, _Sock} ->
+      inet:setopts(Sock, [{active, 100}]),
+      {ok, {ClientIp, ClientPort}} = inet:peername(Sock),
+      ClientIpStr = inet:ntoa(ClientIp),
+      SocketHandlerModule = ConfigBehaviorImpl:get_socket_handler_module(),
+      SocketHandlerModule:on_client_connected(Sock, ClientIpStr, ClientPort),
+      recv_loop(Sock, ConfigBehaviorImpl);
     {tcp, _Sock, Data} ->
       SocketUnpackModule = ConfigBehaviorImpl:get_socket_package_module(),
       {Cmd, InfoBin} = SocketUnpackModule:unpack(Data),
-
       SocketHandlerModule = ConfigBehaviorImpl:get_socket_handler_module(),
       SocketHandlerModule:on_client_data(Sock, Cmd, InfoBin),
       recv_loop(Sock, ConfigBehaviorImpl);
