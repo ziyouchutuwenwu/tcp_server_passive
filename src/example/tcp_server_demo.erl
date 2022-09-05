@@ -10,5 +10,5 @@ start() ->
   tcp_server:start(9999, tcp_opts(), config_behavior_impl).
 
 send_by_socket(Socket) ->
-  InfoBin = utf8_list:list_to_binary("我没有来"),
+  InfoBin = utf8_list:list_to_binary("这是服务器发的测试数据"),
   tcp_server_send:send_data_by_socket(Socket, 111, InfoBin, config_behavior_impl).
