@@ -4,7 +4,7 @@
 -export([start/0, send_by_socket/1]).
 
 tcp_opts() ->
-  [binary, {packet, 0},{reuseaddr, true}].
+  [binary, {packet, 2},{reuseaddr, true}].
 
 start() ->
   tcp_server:start(9999, tcp_opts(), config_behavior_impl).
