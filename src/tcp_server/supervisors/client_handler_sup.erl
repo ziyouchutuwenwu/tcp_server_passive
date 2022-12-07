@@ -20,13 +20,16 @@ init([]) ->
       intensity => MaxRestarts,
       period => MaxSecondsBetweenRestarts},
 
-  ChildSpec =
-    #{id => client_handler,
-      start => {client_handler, start_link, []},
-      restart => transient,
-      shutdown => brutal_kill,
-      type => worker,
-      modules => [client_handler]},
+  ChildSpecs =
+    [
+      #{
+        id => client_handler,
+        start => {client_handler, start_link, []},
+        restart => transient,
+        shutdown => brutal_kill,
+        type => worker,
+        modules => [client_handler]
+      }
+    ],
 
-  Children = [ChildSpec],
-  {ok, {SupervisorFlags, Children}}.
+  {ok, {SupervisorFlags, ChildSpecs}}.

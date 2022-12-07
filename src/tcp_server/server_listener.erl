@@ -7,7 +7,6 @@ start_link(Port, TcpOptions, ConfigBehaviorImpl) ->
   {ok, Pid}.
 
 init(Port, TcpOptions, ConfigBehaviorImpl) ->
-  client_handler_sup:start_link(),
   {ok, ListenSocket} = gen_tcp:listen(Port, TcpOptions),
   accept(ListenSocket, ConfigBehaviorImpl).
 
