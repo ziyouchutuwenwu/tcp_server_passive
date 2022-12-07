@@ -1,4 +1,4 @@
--module(server_server_sup).
+-module(tcp_server_sup).
 
 -behaviour(supervisor).
 
