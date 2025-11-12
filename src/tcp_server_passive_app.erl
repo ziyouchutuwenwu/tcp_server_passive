@@ -1,8 +1,3 @@
-%%%-------------------------------------------------------------------
-%% @doc tcp_server_passive public API
-%% @end
-%%%-------------------------------------------------------------------
-
 -module(tcp_server_passive_app).
 
 -behaviour(application).
@@ -14,5 +9,3 @@ start(_StartType, _StartArgs) ->
 
 stop(_State) ->
     ok.
-
-%% internal functions
